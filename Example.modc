@@ -1,0 +1,11 @@
+i = 1;
+while(i <= 4)
+{
+  Log(switch(i){
+      case(1) return "One";
+      case(2) return "Two";
+      case(3) return "Three";
+      case(4) return "GO!"
+  };);
+  i = i + 1;
+}
