@@ -13,7 +13,10 @@ namespace ModC
 {
 	ScriptEngine ModScript();
 
+	void AssignAny(ModC::VirtualMachine* vm);
+
 	template<typename A> void BindPrefixOperators(Environment& e);
+	template<typename A> void BindAssignmentOperators(Environment& e);
 
 	template<typename A, typename B = A> void BindBasicMathOperators (Environment& e);
 	template<typename A, typename B = A> void BindComparisonOperators(Environment& e);

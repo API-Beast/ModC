@@ -77,11 +77,24 @@ ScriptEngine ModScript()
 	c.registerScriptType<int>("int");
 	c.registerScriptType<std::string>("string");
 
+	// TODO: Where does this belong?
+	// We need it to be able to assign to unassigned variables.
+	c.NativeTypes[-2].Name = "nullvar";
+	g.registerMethod(-2, "_assign", ModC::AssignAny, {-1});
+
 	BindPrefixOperators    <int>(g);
 	BindBasicMathOperators <int>(g);
 	BindComparisonOperators<int>(g);
+	//BindAssignmentOperators<int>(g);
 	
 	return s;
+}
+
+void AssignAny(ModC::VirtualMachine* vm)
+{
+	ModC::ScriptValue* ref = vm->popRef();
+	*ref = *(vm->popRef());
+	vm->pushRef(ref);
 }
 
 }

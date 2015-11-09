@@ -48,4 +48,12 @@ namespace ModC
 		e.registerMethod(a, "_identity", &NativeWrapper::Identity<A>, {}, Type2Number<decltype(+A())>());
 		e.registerMethod(a, "_not",      &NativeWrapper::Not     <A>, {}, Type2Number<decltype(!A())>());
 	}
+
+	template<typename A>
+	void BindAssignmentOperators(Environment& e)
+	{
+		int a = Type2Number<A>();
+
+		e.registerMethod(a, "_assign",   &NativeWrapper::Assign<A>, {}, Type2Number<A>());
+	}
 }

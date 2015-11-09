@@ -43,4 +43,4 @@ namespace ModC
 		void clearStack();
 	};
 
-}
+};

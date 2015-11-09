@@ -15,6 +15,12 @@ namespace ModC
 {
 	void VirtualMachine::execute(const InstructionList& script)
 	{
+	ScriptValue emptyVar;
+	emptyVar.Flags   = ScriptValue::VariableRef;
+	emptyVar.Type    = -2;
+	emptyVar.Pointer = 0x0;
+	std::map<std::string, ScriptValue>::iterator it;
+
 	for(int i = 0; i < script.size(); ++i)
 	{
 		const Instruction& cmd = script[i];
@@ -25,7 +31,11 @@ namespace ModC
 				push(cmd.Value);
 				break;
 			case GETVAR:
-				pushRef(&Variables[cmd.Name]);
+				it = Variables.find(cmd.Name);
+				if(it == Variables.end())
+					it = Variables.emplace(cmd.Name, emptyVar).first;
+
+				pushRef(&((*it).second));
 				break;
 			case EOL:
 				//clearStack();
@@ -191,7 +201,7 @@ namespace ModC
 
 	ScriptValue* VirtualMachine::popRef()
 	{
-		assert(Stack[StackPosition-1].Flags == 0);
+		//assert(Stack[StackPosition-1].Flags == 0);
 		return Stack[--StackPosition].Value;
 	}
 

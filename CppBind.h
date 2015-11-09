@@ -34,11 +34,11 @@ BinOpWrapper(&&, And);
 BinOpWrapper(||, Or);
 
 #define AssignOpWrapper(OPERATOR, NAME)\
-template<typename A, typename B>\
+template<typename A>\
 void NAME(ModC::VirtualMachine* vm)\
 {\
 	ModC::ScriptValue* ref = vm->popRef();\
-	(*ref) OPERATOR vm->pop().as<B>();\
+	(*ref) OPERATOR vm->pop().as<A>();\
 	vm->pushRef(ref);\
 }
 

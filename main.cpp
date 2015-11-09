@@ -24,5 +24,5 @@ int main()
 	ScriptEngine modc = ModScript();
 	modc.Globals.registerFunction("Log", &Log, {Type2Number<std::string>()});
 	modc.Globals.registerFunction("Log", &LogI, {Type2Number<int>()});
-	modc.execute("a = 5; Log(a+2);");
+	modc.execute("a = 5; b = 125; Log(a+b);");
 }
